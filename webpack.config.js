@@ -6,7 +6,9 @@ module.exports = {
     vendor: ['react', 'react-dom', 'whatwg-fetch'],
   },
   output: {
-    path: __dirname + '/static', // './static' produces an error.
+    // path: './static' produces an error.
+    // path: __dirname + '/static',
+    path: `${__dirname}/static`,
     filename: 'app.bundle.js',
   },
   plugins: [

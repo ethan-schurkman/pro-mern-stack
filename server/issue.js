@@ -16,7 +16,6 @@ const issueFieldType = {
   title: 'required',
 };
 
-// we'll see what the point of this 'cleanup' is
 function cleanUpIssue(issue) {
   const cleanedUpIssue = {};
   Object.keys(issue).forEach(field => {

@@ -64,7 +64,7 @@ app.post('/api/issues', (req, res) => {
 
     Just want to be consistent here what is the catch? */
 
-  db.collection('issues').insertOne(newIssue).then(result =>
+  db.collection('issues').insertOne(Issue.cleanUpIssue(newIssue)).then(result =>
     db.collection('issues').find({ _id: result.insertedId }).limit(1)
     .next()
   )
