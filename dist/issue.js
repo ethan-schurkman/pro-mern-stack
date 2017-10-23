@@ -1,46 +1,58 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
-
 const validIssueStatus = {
-	New: true,
-	Open: true,
-	Assigned: true,
-	Fixed: true,
-	Verified: true,
-	Closed: true
+  New: true,
+  Open: true,
+  Assigned: true,
+  Fixed: true,
+  Verified: true,
+  Closed: true
 };
 
 const issueFieldType = {
-	status: 'required',
-	owner: 'required',
-	effort: 'optional',
-	created: 'required',
-	completionDate: 'optional',
-	title: 'required'
+  status: 'required',
+  owner: 'required',
+  effort: 'optional',
+  created: 'required',
+  completionDate: 'optional',
+  title: 'required'
 };
 
+// we'll see what the point of this 'cleanup' is
+function cleanUpIssue(issue) {
+  const cleanedUpIssue = {};
+  Object.keys(issue).forEach(field => {
+    if (issueFieldType[field]) {
+      cleanedUpIssue[field] = issue[field];
+    }
+  });
+
+  return cleanedUpIssue;
+}
+
 function validateIssue(issue) {
-	for (var field in issueFieldType) {
-		// <-- in textbook use keyword const. Interestingly doesn't seem to iterate on for-in loop.
-		var type = issueFieldType[field]; // <-- Looks like const are read only vars. Not immutable but cannot reallocate const twice.
-		if (!type) {
-			delete issue[field];
-		} else if (type === 'required' && !issue[field]) {
-			return `${field} is required`;
-		}
-	}
+  const errors = [];
+  Object.keys(issueFieldType).forEach(field => {
+    //errors.push(`Missing mandatory field ${field}`);
+    console.log("field: " + field + " " + "issue: " + issue[field]);
+    if (issueFieldType === 'required' && !issue[field]) {
+      errors.push(`Missing mandatory field ${field}`);
+      console.log("Something happening?");
+    }
+  });
 
-	if (!validIssueStatus[issue.status]) {
-		return `${issue.status} is not a valid status.`;
-	}
+  if (!validIssueStatus[issue.status]) {
+    errors.push(`${issue.status} is not a valid status.`);
+  }
 
-	return null;
+  return errors.length ? errors.join('; ') : null;
 }
 
 exports.default = {
-	validateIssue: validateIssue
+  validateIssue: validateIssue,
+  cleanUpIssue: cleanUpIssue
 };
 //# sourceMappingURL=issue.js.map

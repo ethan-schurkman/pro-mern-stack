@@ -8,7 +8,7 @@ export default class IssueAdd extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    //var form = document.forms.issueAdd;
+    // var form = document.forms.issueAdd;
     const form = document.forms.issueAdd;
     this.props.createIssue({
       owner: form.owner.value,
@@ -33,3 +33,7 @@ export default class IssueAdd extends React.Component {
     );
   }
 }
+
+IssueAdd.propTypes = {
+  createIssue: React.PropTypes.func.isRequired,
+};
