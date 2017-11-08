@@ -3,12 +3,12 @@ const webpack = require('webpack');
 module.exports = {
   entry: {
     app: './src/App.jsx',
-    vendor: ['react', 'react-dom', 'whatwg-fetch'],
+    vendor: ['react', 'react-dom', 'whatwg-fetch', 'react-router'],
   },
   output: {
-    // path: './static' produces an error.
-    // path: __dirname + '/static',
-    path: `${__dirname}/static`,
+    // path: './static' -- produces an error.
+    // path: `${__dirname}/static`,
+    path: __dirname + '/static', // eslint-disable-line 
     filename: 'app.bundle.js',
   },
   plugins: [
