@@ -57,8 +57,18 @@ export default class IssueList extends React.Component {
     this.loadData();
   }
 
+  componentDidUpdate(prevProps) {
+    const oldQuery = prevProps.location.query;
+    const newQuery = this.props.location.query;
+    if (oldQuery.status === newQuery.status) {
+      return;
+    }
+    this.loadData();
+  }
+
+
   loadData() {
-    fetch('/api/issues').then(response => {
+    fetch(`/api/issues${this.props.location.search}`).then(response => {
       if (response.ok) {
         response.json().then(data => {
           // console.log("Total count of records: ", data._metadata.total_count);
@@ -118,3 +128,8 @@ export default class IssueList extends React.Component {
     );
   }
 }
+
+IssueList.propTypes = {
+  location: React.PropTypes.object.isRequired,
+};
+
