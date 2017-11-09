@@ -50,7 +50,10 @@ export default class IssueList extends React.Component {
     super();
     this.state = { issues: [] };
 
+    // this.loadData unnecessary? Doesn't it make use of this.props?
+    this.loadData = this.loadData.bind(this);
     this.createIssue = this.createIssue.bind(this);
+    this.setFilter = this.setFilter.bind(this);
   }
 
   componentDidMount() {
@@ -66,6 +69,9 @@ export default class IssueList extends React.Component {
     this.loadData();
   }
 
+  setFilter(query) {
+    this.props.router.push({ pathname: this.props.location.pathname, query });
+  }
 
   loadData() {
     fetch(`/api/issues${this.props.location.search}`).then(response => {
@@ -115,11 +121,12 @@ export default class IssueList extends React.Component {
     });
   }
 
+
   render() {
     return (
       <div>
         <h1>Issue Tracker</h1>
-        <IssueFilter />
+        <IssueFilter setFilter={this.setFilter} />
         <hr />
         <IssueTable issues={this.state.issues} />
         <hr />
@@ -131,5 +138,6 @@ export default class IssueList extends React.Component {
 
 IssueList.propTypes = {
   location: React.PropTypes.object.isRequired,
+  router: React.PropTypes.object,
 };
 
