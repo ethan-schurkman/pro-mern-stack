@@ -50,8 +50,8 @@ export default class IssueList extends React.Component {
     super();
     this.state = { issues: [] };
 
-    // this.loadData unnecessary? Doesn't it make use of this.props?
-    this.loadData = this.loadData.bind(this);
+    // this.loadData.bind(this) unnecessary? Doesn't it make use of this.props?
+    // this.loadData = this.loadData.bind(this);
     this.createIssue = this.createIssue.bind(this);
     this.setFilter = this.setFilter.bind(this);
   }
@@ -125,7 +125,6 @@ export default class IssueList extends React.Component {
   render() {
     return (
       <div>
-        <h1>Issue Tracker</h1>
         <IssueFilter setFilter={this.setFilter} />
         <hr />
         <IssueTable issues={this.state.issues} />
