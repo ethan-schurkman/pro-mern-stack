@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
 import Issue from './issue.js';
 import 'babel-polyfill';
+import path from 'path';
 import SourceMapSupport from 'source-map-support';
 SourceMapSupport.install();
 
@@ -79,6 +80,10 @@ app.post('/api/issues', (req, res) => {
     console.log(error);
     res.status(500).json({ message: `Internal server error: ${error}` });
   });
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('static/index.html'));
 });
 
 MongoClient.connect('mongodb://localhost/issuetracker')

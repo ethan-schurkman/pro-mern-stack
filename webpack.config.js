@@ -3,7 +3,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: {
     app: './src/App.jsx',
-    vendor: ['react', 'react-dom', 'whatwg-fetch', 'react-router'],
+    vendor: ['react', 'react-dom', 'whatwg-fetch', 'babel-polyfill', 'react-router'],
   },
   output: {
     // path: './static' -- produces an error.
@@ -37,6 +37,7 @@ module.exports = {
         target: 'http://localhost:3000',
       },
     },
+    historyApiFallback: true,
   },
   devtool: 'source-map',
 };
