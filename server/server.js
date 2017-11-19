@@ -37,6 +37,21 @@ app.get('/api/issues', (req, res) => {
   if (req.query.status) {
     filter.status = req.query.status;
   }
+  if (req.query.effort_lte || req.query.effort_gte) {
+    filter.effort = {};
+    /* In order to have a filter backoff to an underfined 'effort'.
+       Probably not best approach. But works as crude proof of concept.
+       Returns the lte or gte in addition to documents without an 'effort' field. */
+    // filter.$or = {};
+  }
+  if (req.query.effort_lte) {
+    filter.effort.$lte = parseInt(req.query.effort_lte, 10);
+    // filter.$or = [{effort: {$lte: parseInt(req.query.effort_lte, 10)}}, {effort: {$exists: false}}];
+  }
+  if (req.query.effort_gte) {
+    filter.effort.$gte = parseInt(req.query.effort_gte, 10);
+    // filter.$or = [{effort: {$gte: parseInt(req.query.effort_gte, 10)}}, {effort: {$exists: false}}];
+  }
   db.collection('issues').find(filter).toArray()
   .then(issues => {
     const metadata = { total_count: issues.length };
