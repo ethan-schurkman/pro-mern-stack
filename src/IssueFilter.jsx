@@ -7,6 +7,7 @@ export default class IssueFilter extends React.Component { // eslint-disable-lin
     this.clearFilter = this.clearFilter.bind(this);
     this.setFilterOpen = this.setFilterOpen.bind(this);
     this.setFilterAssigned = this.setFilterAssigned.bind(this);
+    // this.setFilterNew = this.setFilterNew.bind(this);
   }
 
   setFilterOpen(e) {
@@ -19,6 +20,10 @@ export default class IssueFilter extends React.Component { // eslint-disable-lin
     this.props.setFilter({ status: 'Assigned' });
   }
 
+  /* setFilterNew(e) {
+    e.preventDefault();
+    this.props.setFilter({ status: 'New' });
+  } */
   clearFilter(e) {
     e.preventDefault();
     this.props.setFilter({});
@@ -33,6 +38,8 @@ export default class IssueFilter extends React.Component { // eslint-disable-lin
         <a href="#" onClick={this.setFilterOpen}>Open Issues</a>
         <Separator />
         <a href="#" onClick={this.setFilterAssigned}>Assigned Issues</a>
+        { /* <Separator />
+        <a href="#" onClick={this.setFilterNew}>New Issues</a> */}
       </div>
     );
   }
