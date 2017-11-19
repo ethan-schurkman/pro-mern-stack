@@ -39,7 +39,7 @@ export default class IssueFilter extends React.Component { // eslint-disable-lin
         <Separator />
         <a href="#" onClick={this.setFilterAssigned}>Assigned Issues</a>
         { /* <Separator />
-        <a href="#" onClick={this.setFilterNew}>New Issues</a> */}
+        <a href="#" onClick={this.setFilterNew}>New Issues</a> */ }
       </div>
     );
   }
