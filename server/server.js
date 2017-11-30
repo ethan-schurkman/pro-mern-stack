@@ -46,11 +46,13 @@ app.get('/api/issues', (req, res) => {
   }
   if (req.query.effort_lte) {
     filter.effort.$lte = parseInt(req.query.effort_lte, 10);
-    // filter.$or = [{effort: {$lte: parseInt(req.query.effort_lte, 10)}}, {effort: {$exists: false}}];
+    /* filter.$or = [{effort: {$lte: parseInt(req.query.effort_lte, 10)}},
+       {effort: {$exists: false}}]; */
   }
   if (req.query.effort_gte) {
     filter.effort.$gte = parseInt(req.query.effort_gte, 10);
-    // filter.$or = [{effort: {$gte: parseInt(req.query.effort_gte, 10)}}, {effort: {$exists: false}}];
+    /* filter.$or = [{effort: {$gte: parseInt(req.query.effort_gte, 10)}},
+       {effort: {$exists: false}}]; */
   }
   db.collection('issues').find(filter).toArray()
   .then(issues => {
