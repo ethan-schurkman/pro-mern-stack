@@ -34,7 +34,7 @@ export default class IssueEdit extends React.Component { // eslint-disable-line
   }
 
   loadData() {
-    fetch(`api/issues/${this.props.params.id}`).then(response => {
+    fetch(`/api/issues/${this.props.params.id}`).then(response => {
       if (response.ok) {
         response.json().then(issue => {
           issue.created = new Date(issue.created).toDateString();
@@ -42,6 +42,10 @@ export default class IssueEdit extends React.Component { // eslint-disable-line
             new Date(issue.completionDate).toDateString() : '';
           issue.effort = issue.effort != null ? issue.effort.toString() : '';
           this.setState({ issue });
+        });
+      } else {
+        response.json().then(error => {
+          alert(`Failed to fetch issue: ${error.message}`);
         });
       }
     }).catch(err => {
@@ -71,9 +75,9 @@ export default class IssueEdit extends React.Component { // eslint-disable-line
           <br />
           Effort: <input size={5} name="effort" value={issue.effort} onChange={this.onChange} />
           <br />
-          Completion Date: <input size={5} value={issue.completionDate} onChange={this.onChange} />
+          Completion Date: <input name="completionDate" value={issue.completionDate} onChange={this.onChange} />
           <br />
-          TItle: <input size={50} value={issue.title} onChange={this.onChange} />
+          Title: <input size={50} name="title" value={issue.title} onChange={this.onChange} />
           <br />
           <button type="submit">Submit</button>
           <Link to="/issues">Back to issues list.</Link>
