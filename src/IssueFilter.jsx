@@ -26,6 +26,7 @@ export default class IssueFilter extends React.Component { // eslint-disable-lin
       changed: false,
     });
   }
+
   onChangeStatus(e) {
     this.setState({ status: e.target.value, changed: true });
   }
