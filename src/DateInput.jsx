@@ -50,10 +50,10 @@ export default class DateInput extends React.Component {
   }
 
   unformat(str) {
-    // The date conversion is all a little messed up.
-    // const vals = str.match(/\d+/g);
-    // const val = new Date(vals[0], vals[1]-1, vals[2]);
-    const val = new Date(str);
+    const vals = str.match(/\d+/g) || '';
+    const strNew = `${vals[1]}-${vals[2]}-${vals[0]}`; // MM-DD-YYYY seems to work best.
+    const val = new Date(strNew);
+    // const val = new Date(str);
     return isNaN(val.getTime()) ? null : val;
   }
 
