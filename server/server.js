@@ -127,6 +127,37 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve('static/index.html'));
 });
 
+app.put('/api/issues/:id', (req, res) => {
+  let issueId;
+  try {
+    issueId = new ObjectId(req.params.id);
+  } catch (error) {
+    res.status(422).json({ message: `Invalid issueID format: ${error}` });
+  }
+
+  const issue = req.body;
+  delete issue._id;
+
+  const err = Issue.validateIssue(issue);
+  if (err) {
+    res.status(422).json({ message: `Invalid request ${err}` });
+    return;
+  }
+
+  // same phenomenon with the no brackets...
+  db.collection('issues').update({ _id: issueId }, Issue.convertIssue(issue)).then(() =>
+    db.collection('issues').find({ _id: issueId }).limit(1)
+    .next()
+  )
+  .then(savedIssue => {
+    res.json(savedIssue);
+  })
+  .catch(error => {
+    console.log(error);
+    res.status(500).json({ message: `Internal Server Error: ${error}` });
+  });
+});
+
 MongoClient.connect('mongodb://localhost/issuetracker')
 .then(connection => {
   db = connection;

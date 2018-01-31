@@ -1,4 +1,5 @@
 node_modules
+scripts/json.json
 static/app.bundle.js
 static/vendor.bundle.js
 static/app.bundle.js.map
