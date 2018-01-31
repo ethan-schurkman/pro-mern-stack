@@ -157,6 +157,27 @@ app.put('/api/issues/:id', (req, res) => {
   });
 });
 
+app.delete('/api/issues/:id', (req, res) => {
+  let issueId;
+  try {
+    issueId = new ObjectId(req.params.id);
+  } catch (error) {
+    res.status(422).json({ message: `Invalid issueID format: ${error}` });
+  }
+
+  db.collection('issues').deleteOne({ _id: issueId }).then((deleteResult) => {
+    if (deleteResult.result.n === 1) {
+      res.json({ status: 'OK' });
+    } else {
+      res.json({ status: 'Warning. Object not found.' });
+    }
+  })
+  .catch(error => {
+    console.log(error);
+    res.status(500).json({ message: `Internal Server Error:${error}` });
+  });
+});
+
 MongoClient.connect('mongodb://localhost/issuetracker')
 .then(connection => {
   db = connection;
