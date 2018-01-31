@@ -134,7 +134,6 @@ app.put('/api/issues/:id', (req, res) => {
   } catch (error) {
     res.status(422).json({ message: `Invalid issueID format: ${error}` });
   }
-
   const issue = req.body;
   delete issue._id;
 
