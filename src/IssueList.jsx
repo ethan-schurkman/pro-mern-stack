@@ -1,6 +1,7 @@
 import React from 'react';
 import 'whatwg-fetch';
 import { Link } from 'react-router';
+import { Button, Glyphicon } from 'react-bootstrap';
 
 import IssueAdd from './IssueAdd.jsx';
 import IssueFilter from './IssueFilter.jsx';
@@ -19,7 +20,9 @@ const IssueRow = (props) => {
       <td>{props.issue.effort}</td>
       <td>{props.issue.completionDate ? props.issue.completionDate.toDateString() : ''}</td>
       <td>{props.issue.title}</td>
-      <td><button onClick={onDeleteClick}>DELETE</button></td>
+      <td>
+        <Button bsSize="xsmall" onClick={onDeleteClick}><Glyphicon glyph="trash" /></Button>
+      </td>
     </tr>
   );
 };
@@ -167,4 +170,3 @@ IssueList.propTypes = {
   location: React.PropTypes.object.isRequired,
   router: React.PropTypes.object,
 };
-
