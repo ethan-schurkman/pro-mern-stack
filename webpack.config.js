@@ -3,12 +3,12 @@ const webpack = require('webpack');
 module.exports = {
   entry: {
     app: './src/App.jsx',
-    vendor: ['react', 'react-dom', 'whatwg-fetch', 'babel-polyfill', 'react-router'],
+    vendor: ['react', 'react-dom', 'whatwg-fetch', 'babel-polyfill', 'react-router', 'react-router-bootstrap'],
   },
   output: {
     // path: './static' -- produces an error.
     // path: `${__dirname}/static`,
-    path: __dirname + '/static', // eslint-disable-line 
+    path: __dirname + '/static', // eslint-disable-line
     filename: 'app.bundle.js',
   },
   plugins: [
